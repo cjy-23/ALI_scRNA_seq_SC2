@@ -1,31 +1,30 @@
 library(Seurat)
-library(ggplot2)
+#library(ggplot2)
 library(sctransform)
 library(glmGamPoi)
-library(metap)
-library(multtest)
+#library(metap)
+#library(multtest)
 library(dplyr)
-library(data.table)
-library(stringr)
-library(dplyr)
-library(tidyverse)
-library(RCurl)
-library(cowplot)
-library(ggplot2)
-library(dplyr)
-library(hrbrthemes)
-library(viridis)
+#library(data.table)
+#library(stringr)
+#library(dplyr)
+#library(tidyverse)
+#library(RCurl)
+#library(cowplot)
+#library(ggplot2)
+#library(hrbrthemes)
+#library(viridis)
 library(dittoSeq)
 #memory.limit(size=1600000)
 
 #Check ALL DATASETS
 
-Long_read_UK_72hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_UK_72hpi_adult/outs/filtered_feature_bc_matrix/")
+Long_read_UK_72hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_UK_72hpi_adult/outs/filtered_feature_bc_matrix")
 Long_read_UK_72hpi_adult <- CreateSeuratObject(counts = Long_read_UK_72hpi_adult)
-demuxlet_Long_read_UK_72hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_UK_72hpi_adult/outs/demuxlet/Long_read_UK_72hpi_adult_nowarning.best", header=TRUE)
+demuxlet_Long_read_UK_72hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_UK_72hpi_adult/outs/demuxlet/Long_read_UK_72hpi_adult_nowarning.best", header=TRUE)
 
 
-Long_read_UK_72hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Long_read_UK_72hpi_adult/outs/filtered_feature_bc_matrix/")
+Long_read_UK_72hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Long_read_UK_72hpi_adult/raw_feature_bc_matrix")
 Long_read_UK_72hpi_adult_v <- CreateSeuratObject(counts = Long_read_UK_72hpi_adult_v)
 
 
@@ -93,13 +92,13 @@ demux.calls.summary(Long_read_UK_72hpi_adult)
 
 
 
-Long_read_uninfected_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_uninfected_adult/outs/filtered_feature_bc_matrix/")
+Long_read_uninfected_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_uninfected_adult/outs/filtered_feature_bc_matrix")
 Long_read_uninfected_adult <- CreateSeuratObject(counts = Long_read_uninfected_adult)
-demuxlet_Long_read_uninfected_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_uninfected_adult/outs/demuxlet/Long_read_uninfected_adult_nowarning.best", header=TRUE)
+demuxlet_Long_read_uninfected_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_uninfected_adult/outs/demuxlet/Long_read_uninfected_adult_nowarning.best", header=TRUE)
 
 
 
-Long_read_uninfected_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Long_read_uninfected_adult/outs/filtered_feature_bc_matrix/")
+Long_read_uninfected_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Long_read_uninfected_adult/raw_feature_bc_matrix")
 Long_read_uninfected_adult_v <- CreateSeuratObject(counts = Long_read_uninfected_adult_v)
 
 
@@ -164,13 +163,13 @@ Long_read_uninfected_adult <-importDemux(
 demux.SNP.summary(Long_read_uninfected_adult)
 demux.calls.summary(Long_read_uninfected_adult)
 
-Long_read_VIC01_48hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_VIC01_48hpi_adult/outs/filtered_feature_bc_matrix/")
+Long_read_VIC01_48hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_VIC01_48hpi_adult/outs/filtered_feature_bc_matrix")
 Long_read_VIC01_48hpi_adult <- CreateSeuratObject(counts = Long_read_VIC01_48hpi_adult)
-demuxlet_Long_read_VIC01_48hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_VIC01_48hpi_adult/outs/demuxlet/Long_read_VIC01_48hpi_adult_nowarning.best", header=TRUE)
+demuxlet_Long_read_VIC01_48hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_VIC01_48hpi_adult/outs/demuxlet/Long_read_VIC01_48hpi_adult_nowarning.best", header=TRUE)
 
 
 
-Long_read_VIC01_48hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Long_read_VIC01_48hpi_adult/outs/filtered_feature_bc_matrix/")
+Long_read_VIC01_48hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Long_read_VIC01_48hpi_adult/raw_feature_bc_matrix")
 Long_read_VIC01_48hpi_adult_v <- CreateSeuratObject(counts = Long_read_VIC01_48hpi_adult_v)
 
 
@@ -236,12 +235,12 @@ Long_read_VIC01_48hpi_adult <-importDemux(
 demux.SNP.summary(Long_read_VIC01_48hpi_adult)
 demux.calls.summary(Long_read_VIC01_48hpi_adult)
 
-Long_read_VIC01_72hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_VIC01_72hpi_adult/outs/filtered_feature_bc_matrix/")
+Long_read_VIC01_72hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_VIC01_72hpi_adult/outs/filtered_feature_bc_matrix")
 Long_read_VIC01_72hpi_adult <- CreateSeuratObject(counts = Long_read_VIC01_72hpi_adult)
-demuxlet_Long_read_VIC01_72hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_VIC01_72hpi_adult/outs/demuxlet/Long_read_VIC01_72hpi_adult_nowarning.best", header=TRUE)
+demuxlet_Long_read_VIC01_72hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_VIC01_72hpi_adult/outs/demuxlet/Long_read_VIC01_72hpi_adult_nowarning.best", header=TRUE)
 
 
-Long_read_VIC01_72hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Long_read_VIC01_72hpi_adult/outs/filtered_feature_bc_matrix/")
+Long_read_VIC01_72hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Long_read_VIC01_72hpi_adult/raw_feature_bc_matrix")
 Long_read_VIC01_72hpi_adult_v <- CreateSeuratObject(counts = Long_read_VIC01_72hpi_adult_v)
 
 
@@ -308,13 +307,13 @@ demux.SNP.summary(Long_read_VIC01_72hpi_adult)
 demux.calls.summary(Long_read_VIC01_72hpi_adult)
 
 
-Short_read_UK_72hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_UK_72hpi_adult/outs/filtered_feature_bc_matrix/")
+Short_read_UK_72hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_UK_72hpi_adult/outs/filtered_feature_bc_matrix")
 Short_read_UK_72hpi_adult <- CreateSeuratObject(counts = Short_read_UK_72hpi_adult)
-demuxlet_Short_read_UK_72hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_UK_72hpi_adult/outs/demuxlet/Short_read_UK_72hpi_adult_nowarning.best", header=TRUE)
+demuxlet_Short_read_UK_72hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_UK_72hpi_adult/outs/demuxlet/Short_read_UK_72hpi_adult_nowarning.best", header=TRUE)
 
 
 
-Short_read_UK_72hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Short_read_UK_72hpi_adult/outs/filtered_feature_bc_matrix/")
+Short_read_UK_72hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Short_read_UK_72hpi_adult/raw_feature_bc_matrix")
 Short_read_UK_72hpi_adult_v <- CreateSeuratObject(counts = Short_read_UK_72hpi_adult_v)
 
 
@@ -381,13 +380,13 @@ demux.SNP.summary(Short_read_UK_72hpi_adult)
 demux.calls.summary(Short_read_UK_72hpi_adult)
 
 
-Short_read_uninfected_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_uninfected_adult/outs/filtered_feature_bc_matrix/")
+Short_read_uninfected_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_uninfected_adult/outs/filtered_feature_bc_matrix")
 Short_read_uninfected_adult <- CreateSeuratObject(counts = Short_read_uninfected_adult)
-demuxlet_Short_read_uninfected_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_uninfected_adult/outs/demuxlet/Short_read_uninfected_adult_nowarning.best", header=TRUE)
+demuxlet_Short_read_uninfected_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_uninfected_adult/outs/demuxlet/Short_read_uninfected_adult_nowarning.best", header=TRUE)
 
 
 
-Short_read_uninfected_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Short_read_uninfected_adult/outs/filtered_feature_bc_matrix/")
+Short_read_uninfected_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Short_read_uninfected_adult/raw_feature_bc_matrix")
 Short_read_uninfected_adult_v <- CreateSeuratObject(counts = Short_read_uninfected_adult_v)
 
 
@@ -456,13 +455,13 @@ demux.calls.summary(Short_read_uninfected_adult)
 
 
 
-Short_read_VIC01_48hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_VIC01_48hpi_adult/outs/filtered_feature_bc_matrix/")
+Short_read_VIC01_48hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_VIC01_48hpi_adult/outs/filtered_feature_bc_matrix")
 Short_read_VIC01_48hpi_adult <- CreateSeuratObject(counts = Short_read_VIC01_48hpi_adult)
-demuxlet_Short_read_VIC01_48hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_VIC01_48hpi_adult/outs/demuxlet/Short_read_VIC01_48hpi_adult_nowarning.best", header=TRUE)
+demuxlet_Short_read_VIC01_48hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_VIC01_48hpi_adult/outs/demuxlet/Short_read_VIC01_48hpi_adult_nowarning.best", header=TRUE)
 
 
 
-Short_read_VIC01_48hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Short_read_VIC01_48hpi_adult/outs/filtered_feature_bc_matrix/")
+Short_read_VIC01_48hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Short_read_VIC01_48hpi_adult/raw_feature_bc_matrix")
 Short_read_VIC01_48hpi_adult_v <- CreateSeuratObject(counts = Short_read_VIC01_48hpi_adult_v)
 
 
@@ -529,12 +528,12 @@ demux.calls.summary(Short_read_VIC01_48hpi_adult)
 
 
 
-Short_read_VIC01_72hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_VIC01_72hpi_adult/outs/filtered_feature_bc_matrix/")
+Short_read_VIC01_72hpi_adult <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_VIC01_72hpi_adult/outs/filtered_feature_bc_matrix")
 Short_read_VIC01_72hpi_adult <- CreateSeuratObject(counts = Short_read_VIC01_72hpi_adult)
-demuxlet_Short_read_VIC01_72hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_VIC01_72hpi_adult/outs/demuxlet/Short_read_VIC01_72hpi_adult_nowarning.best", header=TRUE)
+demuxlet_Short_read_VIC01_72hpi_adult <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_VIC01_72hpi_adult/outs/demuxlet/Short_read_VIC01_72hpi_adult_nowarning.best", header=TRUE)
 
 
-Short_read_VIC01_72hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Short_read_VIC01_72hpi_adult/outs/filtered_feature_bc_matrix/")
+Short_read_VIC01_72hpi_adult_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Short_read_VIC01_72hpi_adult/raw_feature_bc_matrix")
 Short_read_VIC01_72hpi_adult_v <- CreateSeuratObject(counts = Short_read_VIC01_72hpi_adult_v)
 
 
@@ -603,12 +602,12 @@ demux.calls.summary(Short_read_VIC01_72hpi_adult)
 
 
 
-Long_read_UK_72hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_UK_72hpi_child/outs/filtered_feature_bc_matrix/")
+Long_read_UK_72hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_UK_72hpi_child/outs/filtered_feature_bc_matrix")
 Long_read_UK_72hpi_child <- CreateSeuratObject(counts = Long_read_UK_72hpi_child)
-demuxlet_Long_read_UK_72hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_UK_72hpi_child/outs/demuxlet/Long_read_UK_72hpi_child_nowarning.best", header=TRUE)
+demuxlet_Long_read_UK_72hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_UK_72hpi_child/outs/demuxlet/Long_read_UK_72hpi_child_nowarning.best", header=TRUE)
 
 
-Long_read_UK_72hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Long_read_UK_72hpi_child/outs/filtered_feature_bc_matrix/")
+Long_read_UK_72hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Long_read_UK_72hpi_child/raw_feature_bc_matrix")
 Long_read_UK_72hpi_child_v <- CreateSeuratObject(counts = Long_read_UK_72hpi_child_v)
 
 
@@ -676,11 +675,11 @@ demux.calls.summary(Long_read_UK_72hpi_child)
 
 
 
-Long_read_uninfected_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_uninfected_child/outs/filtered_feature_bc_matrix/")
+Long_read_uninfected_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_uninfected_child/outs/filtered_feature_bc_matrix")
 Long_read_uninfected_child <- CreateSeuratObject(counts = Long_read_uninfected_child)
-demuxlet_Long_read_uninfected_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_uninfected_child/outs/demuxlet/Long_read_uninfected_child_nowarning.best", header=TRUE)
+demuxlet_Long_read_uninfected_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_uninfected_child/outs/demuxlet/Long_read_uninfected_child_nowarning.best", header=TRUE)
 
-Long_read_uninfected_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Long_read_uninfected_child/outs/filtered_feature_bc_matrix/")
+Long_read_uninfected_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Long_read_uninfected_child/raw_feature_bc_matrix")
 Long_read_uninfected_child_v <- CreateSeuratObject(counts = Long_read_uninfected_child_v)
 
 
@@ -747,11 +746,11 @@ demux.SNP.summary(Long_read_uninfected_child)
 demux.calls.summary(Long_read_uninfected_child)
 
 
-Long_read_VIC01_48hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_VIC01_48hpi_child/outs/filtered_feature_bc_matrix/")
+Long_read_VIC01_48hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_VIC01_48hpi_child/outs/filtered_feature_bc_matrix")
 Long_read_VIC01_48hpi_child <- CreateSeuratObject(counts = Long_read_VIC01_48hpi_child)
-demuxlet_Long_read_VIC01_48hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_VIC01_48hpi_child/outs/demuxlet/Long_read_VIC01_48hpi_child_nowarning.best", header=TRUE)
+demuxlet_Long_read_VIC01_48hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_VIC01_48hpi_child/outs/demuxlet/Long_read_VIC01_48hpi_child_nowarning.best", header=TRUE)
 
-Long_read_VIC01_48hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Long_read_VIC01_48hpi_child/outs/filtered_feature_bc_matrix/")
+Long_read_VIC01_48hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Long_read_VIC01_48hpi_child/raw_feature_bc_matrix")
 Long_read_VIC01_48hpi_child_v <- CreateSeuratObject(counts = Long_read_VIC01_48hpi_child_v)
 
 
@@ -819,12 +818,12 @@ demux.calls.summary(Long_read_VIC01_48hpi_child)
 
 
 
-Long_read_VIC01_72hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_VIC01_72hpi_child/outs/filtered_feature_bc_matrix/")
+Long_read_VIC01_72hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_VIC01_72hpi_child/outs/filtered_feature_bc_matrix")
 Long_read_VIC01_72hpi_child <- CreateSeuratObject(counts = Long_read_VIC01_72hpi_child)
-demuxlet_Long_read_VIC01_72hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Long_read_VIC01_72hpi_child/outs/demuxlet/Long_read_VIC01_72hpi_child_nowarning.best", header=TRUE)
+demuxlet_Long_read_VIC01_72hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Long_read_VIC01_72hpi_child/outs/demuxlet/Long_read_VIC01_72hpi_child_nowarning.best", header=TRUE)
 
 
-Long_read_VIC01_72hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Long_read_VIC01_72hpi_child/outs/filtered_feature_bc_matrix/")
+Long_read_VIC01_72hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Long_read_VIC01_72hpi_child/raw_feature_bc_matrix")
 Long_read_VIC01_72hpi_child_v <- CreateSeuratObject(counts = Long_read_VIC01_72hpi_child_v)
 
 
@@ -891,12 +890,12 @@ demux.SNP.summary(Long_read_VIC01_72hpi_child)
 demux.calls.summary(Long_read_VIC01_72hpi_child)
 
 
-Short_read_UK_72hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_UK_72hpi_child/outs/filtered_feature_bc_matrix/")
+Short_read_UK_72hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_UK_72hpi_child/outs/filtered_feature_bc_matrix")
 Short_read_UK_72hpi_child <- CreateSeuratObject(counts = Short_read_UK_72hpi_child)
-demuxlet_Short_read_UK_72hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_UK_72hpi_child/outs/demuxlet/Short_read_UK_72hpi_child_nowarning.best", header=TRUE)
+demuxlet_Short_read_UK_72hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_UK_72hpi_child/outs/demuxlet/Short_read_UK_72hpi_child_nowarning.best", header=TRUE)
 
 
-Short_read_UK_72hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Short_read_UK_72hpi_child/outs/filtered_feature_bc_matrix/")
+Short_read_UK_72hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Short_read_UK_72hpi_child/raw_feature_bc_matrix")
 Short_read_UK_72hpi_child_v <- CreateSeuratObject(counts = Short_read_UK_72hpi_child_v)
 
 
@@ -962,11 +961,11 @@ demux.calls.summary(Short_read_UK_72hpi_child)
 
 
 
-Short_read_uninfected_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_uninfected_child/outs/filtered_feature_bc_matrix/")
+Short_read_uninfected_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_uninfected_child/outs/filtered_feature_bc_matrix")
 Short_read_uninfected_child <- CreateSeuratObject(counts = Short_read_uninfected_child)
-demuxlet_Short_read_uninfected_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_uninfected_child/outs/demuxlet/Short_read_uninfected_child_nowarning.best", header=TRUE)
+demuxlet_Short_read_uninfected_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_uninfected_child/outs/demuxlet/Short_read_uninfected_child_nowarning.best", header=TRUE)
 
-Short_read_uninfected_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Short_read_uninfected_child/outs/filtered_feature_bc_matrix/")
+Short_read_uninfected_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Short_read_uninfected_child/raw_feature_bc_matrix")
 Short_read_uninfected_child_v <- CreateSeuratObject(counts = Short_read_uninfected_child_v)
 
 
@@ -1035,11 +1034,11 @@ demux.calls.summary(Short_read_uninfected_child)
 
 
 
-Short_read_VIC01_48hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_VIC01_48hpi_child/outs/filtered_feature_bc_matrix/")
+Short_read_VIC01_48hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_VIC01_48hpi_child/outs/filtered_feature_bc_matrix")
 Short_read_VIC01_48hpi_child <- CreateSeuratObject(counts = Short_read_VIC01_48hpi_child)
-demuxlet_Short_read_VIC01_48hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_VIC01_48hpi_child/outs/demuxlet/Short_read_VIC01_48hpi_child_nowarning.best", header=TRUE)
+demuxlet_Short_read_VIC01_48hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_VIC01_48hpi_child/outs/demuxlet/Short_read_VIC01_48hpi_child_nowarning.best", header=TRUE)
 
-Short_read_VIC01_48hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Short_read_VIC01_48hpi_child/outs/filtered_feature_bc_matrix/")
+Short_read_VIC01_48hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Short_read_VIC01_48hpi_child/raw_feature_bc_matrix")
 Short_read_VIC01_48hpi_child_v <- CreateSeuratObject(counts = Short_read_VIC01_48hpi_child_v)
 
 
@@ -1105,11 +1104,11 @@ demux.SNP.summary(Short_read_VIC01_48hpi_child)
 demux.calls.summary(Short_read_VIC01_48hpi_child)
 
 
-Short_read_VIC01_72hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_VIC01_72hpi_child/outs/filtered_feature_bc_matrix/")
+Short_read_VIC01_72hpi_child <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_VIC01_72hpi_child/outs/filtered_feature_bc_matrix")
 Short_read_VIC01_72hpi_child <- CreateSeuratObject(counts = Short_read_VIC01_72hpi_child)
-demuxlet_Short_read_VIC01_72hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_hostonly_trim/Short_read_VIC01_72hpi_child/outs/demuxlet/Short_read_VIC01_72hpi_child_nowarning.best", header=TRUE)
+demuxlet_Short_read_VIC01_72hpi_child <- read.table(file= "/data/gpfs/projects/punim1466/analysis/cellranger_new_run/run/Short_read_VIC01_72hpi_child/outs/demuxlet/Short_read_VIC01_72hpi_child_nowarning.best", header=TRUE)
 
-Short_read_VIC01_72hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/Short_read_VIC01_72hpi_child/outs/filtered_feature_bc_matrix/")
+Short_read_VIC01_72hpi_child_v <- Read10X(data.dir = "/data/gpfs/projects/punim1466/analysis/viral_barcode_matrix/Short_read_VIC01_72hpi_child/raw_feature_bc_matrix")
 Short_read_VIC01_72hpi_child_v <- CreateSeuratObject(counts = Short_read_VIC01_72hpi_child_v)
 
 
