@@ -2,7 +2,6 @@
 #SBATCH --job-name=novaseq_count    # Job name
 #SBATCH --partition=physical,snowy
 #SBATCH --mail-type=END,FAIL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
-#SBATCH --mail-user=jessiejieyou@student.unimelb.edu.au     # Where to send mail
 #SBATCH --ntasks=8                    # Run on a single CPU	
 #SBATCH --output=%j.log   # Standard output and error log
 #SBATCH --mem=120GB

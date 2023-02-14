@@ -1,7 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=plink_adult    # Job name
 #SBATCH --mail-type=END,FAIL          # Mail events (NONE, BEGIN, END, FAIL, ALL)
-#SBATCH --mail-user=jessiejieyou@student.unimelb.edu.au     # Where to send mail
 #SBATCH --ntasks=4                    # Run on a single CPU	
 #SBATCH --output=%j.log   # Standard output and error log
 #SBATCH --mem=32000
