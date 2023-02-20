@@ -318,8 +318,6 @@ clusters
 
 
 
-#-----batch correction
-
 ##no subset aggregate counts
 
 # Aggregate across cluster-sample groups
