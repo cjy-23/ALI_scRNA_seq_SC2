@@ -445,19 +445,32 @@ dge[["samples"]]$batch <- ifelse(grepl("Sample6",rownames(dge[["samples"]]))=="T
 ##----include data about sex
 dge[["samples"]]$sex <- ifelse(grepl("Sample1|Sample3|Sample6",rownames(dge[["samples"]]))=="TRUE", print("Male"), print("Female")) 
 
+##------include data about treatment
+dge[["samples"]]$treatment <- ifelse(grepl("uninfected",rownames(dge[["samples"]]))=="TRUE", print("uninfected"),rownames(dge[["samples"]])) 
+dge[["samples"]]$treatment <- ifelse(grepl("UK_72hpi",rownames(dge[["samples"]]))=="TRUE", print("2"),dge[["samples"]]$treatment) 
+dge[["samples"]]$treatment <- ifelse(grepl("VIC01_72hpi",rownames(dge[["samples"]]))=="TRUE", print("3"),dge[["samples"]]$treatment) 
+dge[["samples"]]$treatment <- ifelse(grepl("VIC01_48hpi",rownames(dge[["samples"]]))=="TRUE", print("4"),dge[["samples"]]$treatment) 
 
-##------include data about age
+##---include data about infection status
 
-dge[["samples"]]$age <- ifelse(grepl("adult",rownames(dge[["samples"]]))=="TRUE", print("Adult"),print("Child")) 
+dge[["samples"]]$inf <- ifelse(grepl("Infected",rownames(dge[["samples"]]))=="TRUE", print("1"),rownames(dge[["samples"]])) 
+dge[["samples"]]$inf <- ifelse(grepl("Uninfected",rownames(dge[["samples"]]))=="TRUE", print("uninfected"),dge[["samples"]]$inf) 
 
-#design <- model.matrix(~0 + group)
-#design <- model.matrix(~group)
+
+##----------------include group
+
+dge[["samples"]]$g <- ifelse(grepl("Sample6",rownames(dge[["samples"]]))=="TRUE", print("Donor6"), print("Donor1_5")) 
+
+
+dge[["samples"]]$finf <- paste(dge[["samples"]]$g,dge[["samples"]]$treatment,dge[["samples"]]$inf, sep="_")
+
+
+finf <- dge[["samples"]]$finf
 
 #sex <- batch_d2$sex
 sex <- dge[["samples"]]$sex
-age <- dge[["samples"]]$age
 batch <- dge[["samples"]]$batch
-design2 <- model.matrix(~0 + group + sex)
+design2 <- model.matrix(~0 + finf + sex)
 
 v <- voom(dge, design2, plot=TRUE)
 #plotMDS(v, labels=1:300, col=as.numeric(group))
@@ -475,43 +488,13 @@ corfit$consensus
 
 #Likelihood ratio test
 
-
-
 my.contrasts <- makeContrasts(
-"Basal_1_uninfected_child_Uninfected_vs_Basal_1_uninfected_adult_Uninfected"=groupBasal_1_uninfected_child_Uninfected-groupBasal_1_uninfected_adult_Uninfected,
-"Basal_2_uninfected_child_Uninfected_vs_Basal_2_uninfected_adult_Uninfected"=groupBasal_2_uninfected_child_Uninfected-groupBasal_2_uninfected_adult_Uninfected,
-"Brush_Tuft_uninfected_child_Uninfected_vs_Brush_Tuft_uninfected_adult_Uninfected"=groupBrush_Tuft_uninfected_child_Uninfected-groupBrush_Tuft_uninfected_adult_Uninfected,
-"Ciliated_1_uninfected_child_Uninfected_vs_Ciliated_1_uninfected_adult_Uninfected"=groupCiliated_1_uninfected_child_Uninfected-groupCiliated_1_uninfected_adult_Uninfected,
-"Ciliated_3_uninfected_child_Uninfected_vs_Ciliated_3_uninfected_adult_Uninfected"=groupCiliated_3_uninfected_child_Uninfected-groupCiliated_3_uninfected_adult_Uninfected,
-"Cycling_basal_uninfected_child_Uninfected_vs_Cycling_basal_uninfected_adult_Uninfected"=groupCycling_basal_uninfected_child_Uninfected-groupCycling_basal_uninfected_adult_Uninfected,
-"Deuterosomal_uninfected_child_Uninfected_vs_Deuterosomal_uninfected_adult_Uninfected"=groupDeuterosomal_uninfected_child_Uninfected-groupDeuterosomal_uninfected_adult_Uninfected,
-"Goblet_uninfected_child_Uninfected_vs_Goblet_uninfected_adult_Uninfected"=groupGoblet_uninfected_child_Uninfected-groupGoblet_uninfected_adult_Uninfected,
-"Ionocyte_uninfected_child_Uninfected_vs_Ionocyte_uninfected_adult_Uninfected"=groupIonocyte_uninfected_child_Uninfected-groupIonocyte_uninfected_adult_Uninfected,
-"Secretory_1_uninfected_child_Uninfected_vs_Secretory_1_uninfected_adult_Uninfected"=groupSecretory_1_uninfected_child_Uninfected-groupSecretory_1_uninfected_adult_Uninfected,
-"Secretory_2_uninfected_child_Uninfected_vs_Secretory_2_uninfected_adult_Uninfected"=groupSecretory_2_uninfected_child_Uninfected-groupSecretory_2_uninfected_adult_Uninfected,
-"Secretory_Ciliated_uninfected_child_Uninfected_vs_Secretory_Ciliated_uninfected_adult_Uninfected"=groupSecretory_Ciliated_uninfected_child_Uninfected-groupSecretory_Ciliated_uninfected_adult_Uninfected,
-"Suprabasal_uninfected_child_Uninfected_vs_Suprabasal_uninfected_adult_Uninfected"=groupSuprabasal_uninfected_child_Uninfected-groupSuprabasal_uninfected_adult_Uninfected,
+"donor_6_vs_all" =finfDonor6_uninfected_uninfected-finfDonor1_5_uninfected_uninfected,
 
 levels = design2)
 
 
-contrastlist <- c("Basal_1_uninfected_child_Uninfected_vs_Basal_1_uninfected_adult_Uninfected",
-"Basal_2_uninfected_child_Uninfected_vs_Basal_2_uninfected_adult_Uninfected",
-"Brush_Tuft_uninfected_child_Uninfected_vs_Brush_Tuft_uninfected_adult_Uninfected",
-"Ciliated_1_uninfected_child_Uninfected_vs_Ciliated_1_uninfected_adult_Uninfected",
-"Ciliated_3_uninfected_child_Uninfected_vs_Ciliated_3_uninfected_adult_Uninfected",
-"Cycling_basal_uninfected_child_Uninfected_vs_Cycling_basal_uninfected_adult_Uninfected",
-"Deuterosomal_uninfected_child_Uninfected_vs_Deuterosomal_uninfected_adult_Uninfected",
-"Goblet_uninfected_child_Uninfected_vs_Goblet_uninfected_adult_Uninfected",
-"Ionocyte_uninfected_child_Uninfected_vs_Ionocyte_uninfected_adult_Uninfected",
-"Secretory_1_uninfected_child_Uninfected_vs_Secretory_1_uninfected_adult_Uninfected",
-"Secretory_2_uninfected_child_Uninfected_vs_Secretory_2_uninfected_adult_Uninfected",
-"Secretory_Ciliated_uninfected_child_Uninfected_vs_Secretory_Ciliated_uninfected_adult_Uninfected",
-"Suprabasal_uninfected_child_Uninfected_vs_Suprabasal_uninfected_adult_Uninfected"
-
-)
-
-
+contrastlist <- c("donor_6_vs_all")
 
 
 
@@ -535,3 +518,68 @@ fun <- function(i){
 
 
 lapply(contrastlist,fun)
+
+
+
+
+
+
+
+##-----------------run 2
+
+
+dge[["samples"]]$g2 <- ifelse(grepl("Sample6",rownames(dge[["samples"]]))=="TRUE", print("Donor6"), print("Child")) 
+dge[["samples"]]$g2 <- ifelse(grepl("Sample1|Sample2|Sample3",rownames(dge[["samples"]]))=="TRUE", print("Adult"), dge[["samples"]]$g2) 
+
+dge[["samples"]]$fin2 <- paste(dge[["samples"]]$g2,dge[["samples"]]$treatment,dge[["samples"]]$inf, sep="_")
+
+fin2 <- dge[["samples"]]$fin2 
+
+#sex <- batch_d2$sex
+sex <- dge[["samples"]]$sex
+design2 <- model.matrix(~0 + fin2 + sex)
+
+v <- voom(dge, design2, plot=TRUE)
+#plotMDS(v, labels=1:300, col=as.numeric(group))
+
+##random effect
+corfit <- duplicateCorrelation(v,design2,block=as.factor(batch))
+corfit$consensus
+#Likelihood ratio test
+
+
+my.contrasts <- makeContrasts(
+  "donor_6_vs_4_5" =fin2Donor6_uninfected_uninfected-fin2Child_uninfected_uninfected,
+  
+  levels = design2)
+
+
+contrastlist <- c("donor_6_vs_4_5")
+
+
+
+##Likelihood ratio + Withsex
+fit <- lmFit(v,design2,block=batch,correlation=corfit$consensus)
+#fit <- lmFit(v, design)
+#fit <- lmFit(v, design2)
+#fit <- eBayes(fit)
+
+
+#topTable(fit, coef=ncol(design2))
+
+fun <- function(i){
+  
+  fit2 <- contrasts.fit(fit,contrast=my.contrasts[,i])
+  fit2 <- eBayes(fit2)
+  contr1_withsex_table <- topTable(fit2, adjust.method="BH", sort.by="p",n = Inf)
+  length(which(contr1_withsex_table$adj.P.Val < 0.05))
+  write.csv(contr1_withsex_table, file = paste0(i,".csv"), row.names = TRUE)
+} 
+
+
+lapply(contrastlist,fun)
+
+
+
+
+

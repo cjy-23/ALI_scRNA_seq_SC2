@@ -1,4 +1,5 @@
 library(Seurat)
+library(limma)
 #library(devtools)
 library(ggbiplot)
 library(dplyr)
@@ -318,6 +319,8 @@ clusters
 
 
 
+#-----batch correction
+
 ##no subset aggregate counts
 
 # Aggregate across cluster-sample groups
@@ -429,6 +432,7 @@ keep <- filterByExpr(dge)
 dge <- dge[keep,,keep.lib.sizes=FALSE]
 dge <- calcNormFactors(dge)
 
+
 ##----include data about donor
 dge[["samples"]]$batch <- ifelse(grepl("Sample1",rownames(dge[["samples"]]))=="TRUE", print("Adult1"),rownames(dge[["samples"]])) 
 dge[["samples"]]$batch <- ifelse(grepl("Sample2",rownames(dge[["samples"]]))=="TRUE", print("Adult2"),dge[["samples"]]$batch) 
@@ -441,16 +445,30 @@ dge[["samples"]]$batch <- ifelse(grepl("Sample6",rownames(dge[["samples"]]))=="T
 ##----include data about sex
 dge[["samples"]]$sex <- ifelse(grepl("Sample1|Sample3|Sample6",rownames(dge[["samples"]]))=="TRUE", print("Male"), print("Female")) 
 
+
+##------include data about age
+
+dge[["samples"]]$age <- ifelse(grepl("adult",rownames(dge[["samples"]]))=="TRUE", print("Adult"),print("Child")) 
+
 #design <- model.matrix(~0 + group)
 #design <- model.matrix(~group)
 
 #sex <- batch_d2$sex
 sex <- dge[["samples"]]$sex
+age <- dge[["samples"]]$age
+batch <- dge[["samples"]]$batch
 design2 <- model.matrix(~0 + group + sex)
 
-#v <- voom(dge, design, plot=TRUE)
-dge <- estimateDisp(dge, design2, robust=TRUE)
-plotBCV(dge)
+v <- voom(dge, design2, plot=TRUE)
+#plotMDS(v, labels=1:300, col=as.numeric(group))
+
+##random effect
+corfit <- duplicateCorrelation(v,design2,block=as.factor(batch))
+corfit$consensus
+
+
+#dge <- estimateDisp(dge, design2, robust=TRUE)
+#plotBCV(dge)
 
 
 
@@ -505,15 +523,20 @@ contrastlist <- c("Basal_1_UK_72hpi_child_Infected_vs_Basal_1_UK_72hpi_adult_Inf
 
 
 ##Likelihood ratio + Withsex
-
+fit <- lmFit(v,design2,block=batch,correlation=corfit$consensus)
 #fit <- lmFit(v, design)
-fit2 <- glmFit(dge, design2)
+#fit <- lmFit(v, design2)
+#fit <- eBayes(fit)
+
+
+#topTable(fit, coef=ncol(design2))
 
 fun <- function(i){
   
-  lrt_contr1 <- glmLRT(fit2,contrast=my.contrasts[,i])
-  contr1_withsex_table <- topTags(lrt_contr1, adjust.method="BH", sort.by="PValue", n=Inf)
-  length(which(contr1_withsex_table$PValue < 0.05))
+  fit2 <- contrasts.fit(fit,contrast=my.contrasts[,i])
+  fit2 <- eBayes(fit2)
+  contr1_withsex_table <- topTable(fit2, adjust.method="BH", sort.by="p",n = Inf)
+  length(which(contr1_withsex_table$adj.P.Val < 0.05))
   write.csv(contr1_withsex_table, file = paste0(i,".csv"), row.names = TRUE)
 } 
 
