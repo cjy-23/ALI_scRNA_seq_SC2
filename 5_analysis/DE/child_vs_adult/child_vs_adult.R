@@ -11,7 +11,7 @@ require(devtools)
 
 #setwd("/data/gpfs/projects/punim1466/analysis/cellranger_new_run/DE/child_vs_adult/")
 
-load("/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/seurat/adult_sample_split_sct_donor/sctransform_v2/v1_notidy/split_1_4_9_10_12/sub_RNA_5.RData")
+load("sub_RNA_5.RData")
 
 
 sub_5 <- RenameIdents(sub_5, 

@@ -15,7 +15,7 @@ echo "Running minimap on "`hostname`
 module load htslib/1.12
 module load bcftools/1.12
 
-sed -e 's/^/chr/' "/data/gpfs/projects/punim1466/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3.vcf" > "/data/gpfs/projects/punim1466/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3_chr.vcf"
+sed -e 's/^/chr/' "/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3.vcf" > "/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3_chr.vcf"
 
 
 #Then used nano to get rid of needless chr's
@@ -23,18 +23,18 @@ sed -e 's/^/chr/' "/data/gpfs/projects/punim1466/genotyping/adult/SNP_genotyping
 
 #Removed rows with "chr0"
 
-sed '/chr0/d' "/data/gpfs/projects/punim1466/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3_chr.vcf" > "/data/gpfs/projects/punim1466/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3_chr_no0.vcf"
+sed '/chr0/d' "/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3_chr.vcf" > "/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3_chr_no0.vcf"
 
 
 #Order chroms lexicographically
 
-grep '^#' "/data/gpfs/projects/punim1466/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3_chr_no0.vcf" > newfile_clean_3_chr_no0_lex.vcf && grep -v '^#' "/data/gpfs/projects/punim1466/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3_chr_no0.vcf" | LC_ALL=C sort -t $'\t' -k1,1 -k2,2n >> newfile_clean_3_chr_no0_lex.vcf
+grep '^#' "/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3_chr_no0.vcf" > newfile_clean_3_chr_no0_lex.vcf && grep -v '^#' "/genotyping/adult/SNP_genotyping/plink_input/newfile_clean_3_chr_no0.vcf" | LC_ALL=C sort -t $'\t' -k1,1 -k2,2n >> newfile_clean_3_chr_no0_lex.vcf
 
 #bzgip lex 
-bgzip -c "/data/gpfs/projects/punim1466/genotyping/adult/SNP_genotyping/plink_input/no_warnings/newfile_clean_3_chr_no0_lex.vcf" > "/data/gpfs/projects/punim1466/genotyping/adult/SNP_genotyping/plink_input/no_warnings/newfile_clean_3_chr_no0_lex.vcf.gz"
+bgzip -c "/genotyping/adult/SNP_genotyping/plink_input/no_warnings/newfile_clean_3_chr_no0_lex.vcf" > "/genotyping/adult/SNP_genotyping/plink_input/no_warnings/newfile_clean_3_chr_no0_lex.vcf.gz"
 
 #tabix lex
-tabix "/data/gpfs/projects/punim1466/genotyping/adult/SNP_genotyping/plink_input/no_warnings/newfile_clean_3_chr_no0_lex.vcf.gz"
+tabix "/genotyping/adult/SNP_genotyping/plink_input/no_warnings/newfile_clean_3_chr_no0_lex.vcf.gz"
 
 echo "Complete!"
 

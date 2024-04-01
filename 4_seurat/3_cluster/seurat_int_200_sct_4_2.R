@@ -1,6 +1,3 @@
-#setwd("Z:/User/Jessie/Projects/scRNA-seq/Analysis/Seurat/seurat_qc_3")
-#setwd("C:/Users/jessiejieyou/Documents/scRNA_seq")
-
 library(Seurat)
 library(ggplot2)
 library(sctransform)
@@ -22,7 +19,7 @@ library(glmGamPoi)
 #memory.limit(size=1600000)
 
 
-load("/data/gpfs/projects/punim1466/analysis/novaseq_virus_trim/seurat/adult_sample_split_sct_donor/sctransform_v2/v1_notidy/immune.combined.sct.RData")
+load("/analysis/novaseq_virus_trim/seurat/adult_sample_split_sct_donor/sctransform_v2/v1_notidy/immune.combined.sct.RData")
 
 
 immune.combined.sct <- RunPCA(immune.combined.sct, verbose = FALSE, approx=FALSE)
